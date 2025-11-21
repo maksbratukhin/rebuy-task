@@ -13,9 +13,8 @@
     "test": "nx run-many -t test"
   },
   "lint-staged": {
-    "*.{ts,js,html}": [
-      "nx affected:lint --fix",
-      "nx format:write"
+    "*.{ts,js,html,css,json,md}": [
+      "nx format:write --uncommitted"
     ]
   },
   "private": true,
