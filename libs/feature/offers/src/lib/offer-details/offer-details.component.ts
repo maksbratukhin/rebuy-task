@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, input } from '@angular/core';
+import { Component, inject, OnInit, signal, input, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { OffersStore } from '@rebuy-workspace/data-access-offers';
@@ -28,8 +28,22 @@ export class OfferDetailsComponent implements OnInit {
   purchaseMessage = signal<string>('');
   purchaseSuccess = signal<boolean>(false);
 
+  constructor() {
+    effect(() => {
+      const result = this.store.purchaseResult();
+      if (result) {
+        this.purchaseMessage.set(result.message);
+        this.purchaseSuccess.set(result.success);
+        if (result.success) {
+          this.showPurchaseForm.set(false);
+        }
+      }
+    });
+  }
+
   ngOnInit() {
     this.store.loadOfferById(this.id());
+    this.store.clearPurchaseResult();
   }
 
   voteUp() {
@@ -45,20 +59,14 @@ export class OfferDetailsComponent implements OnInit {
   }
 
   confirmPurchase(quantity: number) {
-    if (this.offer() && quantity > 0 && quantity <= this.offer()!.stock) {
+    if (this.offer()) {
+      this.purchaseMessage.set('');
+      this.purchaseSuccess.set(false);
       this.store.purchaseOffer({
         offerId: this.offer()!.id,
         quantity,
         totalPrice: this.offer()!.price * quantity
       });
-
-      setTimeout(() => {
-        this.purchaseSuccess.set(true);
-        this.purchaseMessage.set('Purchase successful! Your order has been placed.');
-        setTimeout(() => {
-          this.goBack();
-        }, 2000);
-      }, 500);
     }
   }
 
@@ -66,6 +74,7 @@ export class OfferDetailsComponent implements OnInit {
     this.showPurchaseForm.set(false);
     this.purchaseMessage.set('');
     this.purchaseSuccess.set(false);
+    this.store.clearPurchaseResult();
   }
 
   goBack() {

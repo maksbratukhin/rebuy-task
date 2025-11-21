@@ -1,8 +1,8 @@
 import { computed } from '@angular/core';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { pipe, switchMap, tap } from 'rxjs';
-import { Offer, OfferVote, OfferPurchase } from '../models/offer.model';
+import { pipe, switchMap, tap, catchError, of } from 'rxjs';
+import { Offer, OfferVote, OfferPurchase, PurchaseResponse } from '../models/offer.model';
 import { inject } from '@angular/core';
 import { OffersService } from '../services/offers.service';
 
@@ -11,6 +11,7 @@ type OffersState = {
   selectedOffer: Offer | null;
   loading: boolean;
   error: string | null;
+  purchaseResult: PurchaseResponse | null;
 };
 
 const initialState: OffersState = {
@@ -18,6 +19,7 @@ const initialState: OffersState = {
   selectedOffer: null,
   loading: false,
   error: null,
+  purchaseResult: null,
 };
 
 export const OffersStore = signalStore(
@@ -70,23 +72,31 @@ export const OffersStore = signalStore(
     ),
     purchaseOffer: rxMethod<OfferPurchase>(
       pipe(
-        tap(() => patchState(store, { loading: true })),
-        switchMap((purchase) => offersService.purchaseOffer(purchase)),
+        tap(() => patchState(store, { loading: true, purchaseResult: null })),
+        switchMap((purchase) => offersService.purchaseOffer(purchase).pipe(
+          catchError((error) => {
+            const errorMessage = error?.error?.message || 'Purchase failed. Please try again.';
+            return of<PurchaseResponse>({ success: false, message: errorMessage });
+          })
+        )),
         tap({
-          next: (result) => {
-            patchState(store, { loading: false });
-            if (result.success) {
-              const offer = store.offers().find(o => o.id === store.selectedOffer()?.id);
-              if (offer) {
-                const offers = store.offers().map(o => o.id === offer.id ? { ...o } : o);
-                patchState(store, { offers });
+          next: (result: PurchaseResponse) => {
+            patchState(store, { loading: false, purchaseResult: result });
+            if (result.success && result.offer) {
+              const updatedOffer = result.offer;
+              const offers = store.offers().map(o => 
+                o.id === updatedOffer.id ? updatedOffer : o
+              );
+              patchState(store, { offers });
+              if (store.selectedOffer()?.id === updatedOffer.id) {
+                patchState(store, { selectedOffer: updatedOffer });
               }
             }
           },
-          error: () => patchState(store, { loading: false }),
         })
       )
     ),
+    clearPurchaseResult: () => patchState(store, { purchaseResult: null }),
   }))
 );
 

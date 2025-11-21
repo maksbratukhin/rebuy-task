@@ -161,16 +161,33 @@ app.post('/api/offers/:id/purchase', (req: Request, res: Response) => {
   const { quantity } = req.body;
   const offer = offers.find(o => o.id === req.params.id);
   
-  if (offer && offer.stock >= quantity) {
+  if (!offer) {
+    res.status(404).json({
+      success: false,
+      message: 'Offer not found.'
+    });
+    return;
+  }
+
+  if (quantity <= 0) {
+    res.status(400).json({
+      success: false,
+      message: 'Quantity must be greater than 0.'
+    });
+    return;
+  }
+
+  if (offer.stock >= quantity) {
     offer.stock -= quantity;
     res.json({
       success: true,
-      message: 'Purchase successful! Your order has been placed.'
+      message: 'Purchase successful! Your order has been placed.',
+      offer: offer
     });
   } else {
     res.status(400).json({
       success: false,
-      message: 'Insufficient stock available.'
+      message: `Insufficient stock available. Only ${offer.stock} items left.`
     });
   }
 });

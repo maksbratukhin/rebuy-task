@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Offer, OfferVote, OfferPurchase } from '../models/offer.model';
+import { Offer, OfferVote, OfferPurchase, PurchaseResponse } from '../models/offer.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +24,8 @@ export class OffersService {
     });
   }
 
-  purchaseOffer(purchase: OfferPurchase): Observable<{ success: boolean; message: string }> {
-    return this.http.post<{ success: boolean; message: string }>(
+  purchaseOffer(purchase: OfferPurchase): Observable<PurchaseResponse> {
+    return this.http.post<PurchaseResponse>(
       `${this.apiUrl}/offers/${purchase.offerId}/purchase`,
       { quantity: purchase.quantity }
     );

@@ -23,3 +23,9 @@ export interface OfferPurchase {
   totalPrice: number;
 }
 
+export interface PurchaseResponse {
+  success: boolean;
+  message: string;
+  offer?: Offer;
+}
+
