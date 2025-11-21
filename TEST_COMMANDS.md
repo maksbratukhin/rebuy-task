@@ -24,12 +24,17 @@ npm run format
 ```
 **Result**: Success - Code formatting works
 
-## 🔄 Serve SSR Command
+## ✅ Serve Command (Auto-starts API + App)
+```bash
+npm run serve
+```
+**Status**: Works - Automatically starts both API server and Angular app
+
+## ✅ Serve SSR Command
 ```bash
 npm run serve:ssr
 ```
-**Status**: Fixed - Now works with `nx serve marketplace:serve:development`
-**Note**: Start API server first for full functionality
+**Status**: Works - Automatically starts both API server and Angular app with SSR
 
 ## ✅ Storybook Command
 ```bash
@@ -39,12 +44,10 @@ npm run storybook
 
 ## ✅ API Server Commands
 ```bash
-cd api-server
-npm run dev      # Development with hot reload
-npm run build    # Build TypeScript
-npm run start    # Production
+npm run serve:api    # Development server
+npm run build:api    # Build API
 ```
-**Status**: Converted to TypeScript - All commands working
+**Status**: Now an Nx app - Fully integrated with monorepo
 
 ## 🧪 E2E Tests
 ```bash
@@ -55,18 +58,26 @@ npx nx e2e marketplace-e2e
 
 ## How to Run Full Stack
 
-### Terminal 1: API Server
+### Single Command (Recommended)
 ```bash
-cd api-server
-npm run dev
+npm run serve
 ```
 
-### Terminal 2: Angular App
+This starts both API server and Angular app automatically!
+
+### Or Run Individually
+
+API server:
 ```bash
-npm run serve:ssr
+npm run serve:api
 ```
 
-### Terminal 3: Storybook (optional)
+Angular app:
+```bash
+npm run serve:app
+```
+
+Storybook (optional):
 ```bash
 npm run storybook
 ```
@@ -87,4 +98,6 @@ Then visit:
 7. ✅ Fixed serve:ssr command
 8. ✅ Implemented comprehensive e2e tests
 9. ✅ All commands tested and working
+10. ✅ Converted API server to Nx app
+11. ✅ Auto-start API with marketplace app
 

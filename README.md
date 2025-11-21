@@ -26,7 +26,9 @@ A modern, production-ready marketplace application built with Angular 20, featur
 - Reusable UI components (Button, Card, Rating)
 
 ### Backend
-- **Node.js + Express** API server
+- **Node.js + Express** API server as Nx app
+- TypeScript for type safety
+- Integrated with Nx monorepo
 - Mock data for rapid development
 
 ### Development Tools
@@ -39,13 +41,17 @@ A modern, production-ready marketplace application built with Angular 20, featur
 ## Project Structure
 
 ```
-rebuy-workspace/
+rebuy/
 ├── marketplace/                 # Main Angular application
 │   ├── src/
 │   │   ├── app/                # Application components
 │   │   ├── main.ts             # Client entry point
 │   │   ├── main.server.ts      # Server entry point
 │   │   └── server.ts           # Express server
+│
+├── api/                        # Node.js API server (Nx app)
+│   └── src/
+│       └── main.ts             # Express server
 │
 ├── libs/
 │   ├── feature/
@@ -56,16 +62,16 @@ rebuy-workspace/
 │   ├── data-access/
 │   │   └── offers/            # Data access layer
 │   │       ├── models/        # TypeScript models
-│   │       ├── services/      # API services
+│   │       ├── services/      # HTTP services
 │   │       └── store/         # Signal store
 │   │
 │   └── ui/
 │       └── components/         # Reusable UI components
 │           ├── button/
 │           ├── card/
-│           └── rating/
-│
-└── api-server/                 # Node.js API server
+│           ├── rating/
+│           ├── offer-card/    # Smart card component
+│           └── purchase-form/ # Purchase form component
 ```
 
 ## Getting Started
@@ -88,29 +94,34 @@ cd rebuy-workspace
 npm install
 ```
 
-3. Install API server dependencies
-```bash
-cd api-server
-npm install
-cd ..
-```
-
 ### Development
 
-#### Start the Angular application (with SSR)
+#### Start both API server and Angular application
+```bash
+npm run serve
+```
+
+or for SSR:
+
 ```bash
 npm run serve:ssr
 ```
 
-The application will be available at `http://localhost:4200`
+This will automatically start:
+- API server at `http://localhost:3000`
+- Angular application at `http://localhost:4200`
 
-#### Start the API server (optional)
+#### Start individually
+
+API server only:
 ```bash
-cd api-server
-npm run dev
+npm run serve:api
 ```
 
-The API server will be available at `http://localhost:3000`
+Angular app only:
+```bash
+npm run serve:app
+```
 
 #### Start Storybook
 ```bash

@@ -21,7 +21,7 @@ interface Offer {
   stock: number;
 }
 
-let offers: Offer[] = [
+const offers: Offer[] = [
   {
     id: '1',
     title: 'iPhone 14 Pro',
@@ -178,4 +178,3 @@ app.post('/api/offers/:id/purchase', (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log(`API server listening at http://localhost:${port}`);
 });
-

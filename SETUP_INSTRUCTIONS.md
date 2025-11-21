@@ -6,50 +6,43 @@
 
 ## Installation
 
-### 1. Install Root Dependencies
+### Install Dependencies
 ```bash
 npm install
 ```
 
-### 2. Install API Server Dependencies
-```bash
-cd api-server
-npm install
-cd ..
-```
+All dependencies (including API server) are managed in the monorepo.
 
 ## Running the Application
 
 ### Quick Start (Development)
 
-#### Terminal 1: Start API Server
+#### One Command to Start Everything
 ```bash
-cd api-server
-npm run dev
+npm run serve
 ```
-This starts the TypeScript API server on http://localhost:3000
 
-#### Terminal 2: Start Angular App
+This automatically starts both:
+- **API Server** on http://localhost:3000
+- **Angular App** on http://localhost:4200
+
+or with SSR:
+
 ```bash
 npm run serve:ssr
 ```
-This starts the Angular app with SSR on http://localhost:4200
 
 ### Production Build
 
-#### Build API Server
+#### Build Both Apps
 ```bash
-cd api-server
-npm run build
-npm start
+npm run build        # Builds marketplace
+npm run build:api    # Builds API server
 ```
 
-#### Build Angular App
-```bash
-npm run build
-```
-
-The build output will be in `dist/marketplace/`
+Build outputs:
+- Marketplace: `dist/marketplace/`
+- API: `dist/api/`
 
 ## Testing
 
@@ -113,11 +106,9 @@ curl -X POST http://localhost:3000/api/offers/1/purchase \
 
 ```
 rebuy/
-├── api-server/          # TypeScript API server
-│   ├── src/
-│   │   └── server.ts
-│   ├── tsconfig.json
-│   └── package.json
+├── api/                 # TypeScript API server (Nx app)
+│   └── src/
+│       └── main.ts      # Express server
 ├── marketplace/         # Angular app with SSR
 ├── libs/
 │   ├── feature/offers/  # Offer list & details (small components)
@@ -143,11 +134,12 @@ rebuy/
 - Responsive design
 
 ### Backend
-- TypeScript Express server
+- TypeScript Express server as Nx app
 - RESTful API
 - CORS enabled
 - 8 mock products
 - Vote and purchase endpoints
+- Integrated with Nx build system
 
 ### Development
 - Hot reload for both frontend and backend
@@ -167,11 +159,14 @@ kill -9 <PID>
 ```
 
 ### API Server Not Responding
-Make sure you're in the api-server directory and dependencies are installed:
+Run the API server:
 ```bash
-cd api-server
-npm install
-npm run dev
+npm run serve:api
+```
+
+Or rebuild it:
+```bash
+npm run build:api
 ```
 
 ### Build Errors
@@ -191,11 +186,10 @@ Then run the e2e tests.
 
 ## Next Steps
 
-1. Start the API server
-2. Start the Angular app
-3. Visit http://localhost:4200
-4. Browse offers
-5. Click on an offer to see details
-6. Vote on offers
-7. Try purchasing an offer
+1. Run `npm run serve` (starts both API and app)
+2. Visit http://localhost:4200
+3. Browse offers
+4. Click on an offer to see details
+5. Vote on offers
+6. Try purchasing an offer
 

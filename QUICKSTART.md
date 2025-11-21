@@ -2,15 +2,21 @@
 
 ## Run the Application
 
-### Development Mode
+### Development Mode (One Command!)
 
-1. Start the application with SSR:
+```bash
+npm run serve
+```
+
+This automatically starts:
+- API Server: `http://localhost:3000`
+- Angular App: `http://localhost:4200`
+
+or with SSR:
 
 ```bash
 npm run serve:ssr
 ```
-
-Visit: `http://localhost:4200`
 
 ### View Component Library
 
@@ -22,17 +28,17 @@ npm run storybook
 
 Visit: `http://localhost:4400`
 
-### Optional: Run API Server
+### Run Components Separately (Optional)
 
-If you want to test with the Node.js API backend:
-
+API server only:
 ```bash
-cd api-server
-npm install
-npm run dev
+npm run serve:api
 ```
 
-API will be available at: `http://localhost:3000`
+Angular app only:
+```bash
+npm run serve:app
+```
 
 ## Key Features to Test
 
@@ -46,7 +52,6 @@ API will be available at: `http://localhost:3000`
 ## Production Build
 
 Build the production bundle:
-
 ```bash
 npm run build
 ```
@@ -55,24 +60,33 @@ Output will be in: `dist/marketplace`
 
 ## Available Commands
 
-- `npm run serve` - Development server (client-side only)
-- `npm run serve:ssr` - Development server with SSR
-- `npm run build` - Production build
+- `npm run serve` - Start both API and app (recommended!)
+- `npm run serve:ssr` - Start both with SSR
+- `npm run serve:api` - API server only
+- `npm run serve:app` - Angular app only
+- `npm run build` - Build marketplace
+- `npm run build:api` - Build API server
 - `npm run test` - Run all tests
 - `npm run lint` - Lint all projects
-- `npm run format` - Format code with Prettier
+- `npm run format` - Format code
 - `npm run storybook` - Start Storybook
 
 ## Project Structure
 
 ```
-rebuy-workspace/
+rebuy/
 ├── marketplace/          # Main Angular app (with SSR)
+├── api/                  # Node.js Express server (Nx app)
 ├── libs/
 │   ├── feature/offers/  # Offer list & details components
 │   ├── data-access/offers/ # Store, services, models
-│   └── ui/components/   # Reusable components (Button, Card, Rating)
-└── api-server/          # Node.js Express server
+│   └── ui/components/   # Reusable components
+│       ├── button/
+│       ├── card/
+│       ├── rating/
+│       ├── offer-card/  # Smart card
+│       └── purchase-form/ # Purchase form
+└── marketplace-e2e/     # E2E tests
 ```
 
 ## Technologies Used
@@ -84,3 +98,4 @@ rebuy-workspace/
 - Nx Monorepo
 - Storybook
 - Husky + lint-staged
+- TypeScript API server integrated with Nx
