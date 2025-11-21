@@ -15,6 +15,6 @@ export class PurchaseFormActionsComponent {
   success = input<boolean>(false);
   
   confirm = output<void>();
-  cancel = output<void>();
+  cancelled = output<void>();
 }
 

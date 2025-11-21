@@ -13,6 +13,6 @@
     [message]="message()"
     [success]="success()"
     (confirm)="confirmClicked.emit(quantity())"
-    (cancel)="cancelClicked.emit()"
+    (cancelled)="cancelClicked.emit()"
   />
 </rb-card>

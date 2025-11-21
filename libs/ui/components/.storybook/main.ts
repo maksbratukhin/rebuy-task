@@ -2,7 +2,7 @@ import type { StorybookConfig } from '@storybook/angular';
 
 const config: StorybookConfig = {
   stories: ['../src/lib/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
-  addons: [],
+  addons: ['@storybook/addon-essentials'],
   framework: {
     name: '@storybook/angular',
     options: {
@@ -11,6 +11,12 @@ const config: StorybookConfig = {
       },
     },
   },
+  previewHead: (head) => `
+    ${head}
+    <style>
+      @import "tailwindcss";
+    </style>
+  `,
 };
 
 export default config;

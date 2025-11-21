@@ -1,8 +1,6 @@
-import { Component, inject, OnInit, signal, input, effect, DestroyRef } from '@angular/core';
+import { Component, inject, OnInit, signal, input, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { filter, delay } from 'rxjs';
 import { OffersStore } from '@rebuy-workspace/data-access-offers';
 import { BackButtonComponent } from '@rebuy-workspace/ui-components';
 import { OfferDetailsContentComponent } from '../components/offer-details-content/offer-details-content.component';
@@ -22,7 +20,6 @@ import { OfferNotFoundComponent } from '../components/offer-not-found/offer-not-
 export class OfferDetailsComponent implements OnInit {
   store = inject(OffersStore);
   private router = inject(Router);
-  private destroyRef = inject(DestroyRef);
 
   id = input.required<string>();
   

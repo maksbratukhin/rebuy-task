@@ -1,5 +1,4 @@
 import { Route } from '@angular/router';
-import { withComponentInputBinding } from '@angular/router';
 
 export const appRoutes: Route[] = [
   {
