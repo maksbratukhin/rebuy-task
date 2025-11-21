@@ -13,7 +13,7 @@ test.describe('Rebuy Marketplace E2E Tests', () => {
 
   test('should display the marketplace homepage', async ({ page }) => {
     await page.goto(APP_URL);
-    await expect(page.locator('h1')).toContainText('Marketplace Offers');
+    await expect(page.getByRole('heading', { name: 'Marketplace Offers' })).toBeVisible();
     await expect(page.locator('p')).toContainText('Browse and vote');
   });
 
@@ -29,7 +29,7 @@ test.describe('Rebuy Marketplace E2E Tests', () => {
     await page.waitForSelector('rb-offer-card');
     await page.locator('rb-offer-card').first().click();
     await expect(page).toHaveURL(/\/offers\/\d+/);
-    await expect(page.locator('h1')).toBeVisible();
+    await expect(page.getByRole('heading', { name: /iPhone|MacBook|Sony/ })).toBeVisible();
   });
 
   test('should show back button on details page', async ({ page }) => {
@@ -41,7 +41,7 @@ test.describe('Rebuy Marketplace E2E Tests', () => {
 
   test('should navigate back to homepage from details', async ({ page }) => {
     await page.goto(`${APP_URL}/offers/1`);
-    await page.locator('button', { hasText: 'Back to offers' }).click();
+    await page.getByRole('button', { name: 'Back to offers' }).click({ force: true });
     await expect(page).toHaveURL(APP_URL);
   });
 

@@ -38,7 +38,7 @@ export class OfferDetailsComponent implements OnInit {
           this.showPurchaseForm.set(false);
         }
       }
-    }, { allowSignalWrites: true });
+    });
   }
 
   ngOnInit() {
