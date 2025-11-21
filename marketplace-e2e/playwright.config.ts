@@ -23,12 +23,22 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   /* Run your local dev server before starting the tests */
-  webServer: {
-    command: 'npx nx run marketplace:serve',
-    url: 'http://localhost:4200',
-    reuseExistingServer: true,
-    cwd: workspaceRoot,
-  },
+  webServer: [
+    {
+      command: 'npx nx serve api --no-tui',
+      url: 'http://localhost:3000',
+      reuseExistingServer: true,
+      cwd: workspaceRoot,
+      timeout: 120000,
+    },
+    {
+      command: 'npx nx serve marketplace --no-tui',
+      url: 'http://localhost:4200',
+      reuseExistingServer: true,
+      cwd: workspaceRoot,
+      timeout: 120000,
+    },
+  ],
   projects: [
     {
       name: 'chromium',
