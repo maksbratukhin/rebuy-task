@@ -31,10 +31,11 @@ export const Primary: Story = {
     variant: 'primary',
     size: 'md',
     disabled: false,
+    fullWidth: false,
   },
   render: (args) => ({
     props: args,
-    template: `<rb-button [variant]="variant" [size]="size" [disabled]="disabled">Click Me</rb-button>`,
+    template: '<rb-button [variant]="variant" [size]="size" [disabled]="disabled" [fullWidth]="fullWidth">Click Me</rb-button>',
   }),
 };
 
@@ -42,11 +43,10 @@ export const Secondary: Story = {
   args: {
     variant: 'secondary',
     size: 'md',
-    disabled: false,
   },
   render: (args) => ({
     props: args,
-    template: `<rb-button [variant]="variant" [size]="size" [disabled]="disabled">Click Me</rb-button>`,
+    template: '<rb-button [variant]="variant" [size]="size">Secondary Button</rb-button>',
   }),
 };
 
@@ -54,11 +54,10 @@ export const Success: Story = {
   args: {
     variant: 'success',
     size: 'md',
-    disabled: false,
   },
   render: (args) => ({
     props: args,
-    template: `<rb-button [variant]="variant" [size]="size" [disabled]="disabled">Success</rb-button>`,
+    template: '<rb-button [variant]="variant" [size]="size">Success Button</rb-button>',
   }),
 };
 
@@ -66,60 +65,49 @@ export const Danger: Story = {
   args: {
     variant: 'danger',
     size: 'md',
-    disabled: false,
   },
   render: (args) => ({
     props: args,
-    template: `<rb-button [variant]="variant" [size]="size" [disabled]="disabled">Delete</rb-button>`,
+    template: '<rb-button [variant]="variant" [size]="size">Danger Button</rb-button>',
   }),
 };
 
 export const Small: Story = {
   args: {
-    variant: 'primary',
     size: 'sm',
-    disabled: false,
   },
   render: (args) => ({
     props: args,
-    template: `<rb-button [variant]="variant" [size]="size" [disabled]="disabled">Small Button</rb-button>`,
+    template: '<rb-button [size]="size">Small Button</rb-button>',
   }),
 };
 
 export const Large: Story = {
   args: {
-    variant: 'primary',
     size: 'lg',
-    disabled: false,
   },
   render: (args) => ({
     props: args,
-    template: `<rb-button [variant]="variant" [size]="size" [disabled]="disabled">Large Button</rb-button>`,
+    template: '<rb-button [size]="size">Large Button</rb-button>',
   }),
 };
 
 export const Disabled: Story = {
   args: {
-    variant: 'primary',
-    size: 'md',
     disabled: true,
   },
   render: (args) => ({
     props: args,
-    template: `<rb-button [variant]="variant" [size]="size" [disabled]="disabled">Disabled</rb-button>`,
+    template: '<rb-button [disabled]="disabled">Disabled Button</rb-button>',
   }),
 };
 
 export const FullWidth: Story = {
   args: {
-    variant: 'primary',
-    size: 'md',
-    disabled: false,
     fullWidth: true,
   },
   render: (args) => ({
     props: args,
-    template: `<rb-button [variant]="variant" [size]="size" [disabled]="disabled" [fullWidth]="fullWidth">Full Width Button</rb-button>`,
+    template: '<rb-button [fullWidth]="fullWidth">Full Width Button</rb-button>',
   }),
 };
-

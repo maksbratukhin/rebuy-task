@@ -7,7 +7,7 @@ const meta: Meta<RatingComponent> = {
   tags: ['autodocs'],
   argTypes: {
     rating: {
-      control: { type: 'number', min: 0, max: 5, step: 0.1 },
+      control: { type: 'range', min: 0, max: 5, step: 0.1 },
     },
     showValue: {
       control: 'boolean',
@@ -20,21 +20,14 @@ type Story = StoryObj<RatingComponent>;
 
 export const FiveStars: Story = {
   args: {
-    rating: 5.0,
+    rating: 5,
     showValue: true,
   },
 };
 
-export const FourPointFive: Story = {
+export const FourPointEight: Story = {
   args: {
-    rating: 4.5,
-    showValue: true,
-  },
-};
-
-export const FourStars: Story = {
-  args: {
-    rating: 4.0,
+    rating: 4.8,
     showValue: true,
   },
 };
@@ -48,15 +41,21 @@ export const ThreePointFive: Story = {
 
 export const TwoStars: Story = {
   args: {
-    rating: 2.0,
+    rating: 2,
+    showValue: true,
+  },
+};
+
+export const ZeroStars: Story = {
+  args: {
+    rating: 0,
     showValue: true,
   },
 };
 
 export const WithoutValue: Story = {
   args: {
-    rating: 4.8,
+    rating: 4.5,
     showValue: false,
   },
 };
-

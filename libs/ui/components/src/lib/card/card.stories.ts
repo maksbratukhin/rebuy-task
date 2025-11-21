@@ -6,12 +6,12 @@ const meta: Meta<CardComponent> = {
   title: 'UI/Card',
   tags: ['autodocs'],
   argTypes: {
-    hover: {
-      control: 'boolean',
-    },
     padding: {
       control: 'select',
       options: ['none', 'sm', 'md', 'lg'],
+    },
+    hover: {
+      control: 'boolean',
     },
   },
 };
@@ -21,31 +21,15 @@ type Story = StoryObj<CardComponent>;
 
 export const Default: Story = {
   args: {
+    padding: 'md',
     hover: true,
-    padding: 'md',
   },
   render: (args) => ({
     props: args,
     template: `
-      <rb-card [hover]="hover" [padding]="padding">
+      <rb-card [padding]="padding" [hover]="hover">
         <h3 class="text-lg font-semibold mb-2">Card Title</h3>
-        <p class="text-gray-600">This is a card component with default settings.</p>
-      </rb-card>
-    `,
-  }),
-};
-
-export const WithoutHover: Story = {
-  args: {
-    hover: false,
-    padding: 'md',
-  },
-  render: (args) => ({
-    props: args,
-    template: `
-      <rb-card [hover]="hover" [padding]="padding">
-        <h3 class="text-lg font-semibold mb-2">Static Card</h3>
-        <p class="text-gray-600">This card does not have hover effects.</p>
+        <p class="text-gray-600">This is a card component with some content inside.</p>
       </rb-card>
     `,
   }),
@@ -53,18 +37,31 @@ export const WithoutHover: Story = {
 
 export const NoPadding: Story = {
   args: {
-    hover: true,
     padding: 'none',
+    hover: false,
   },
   render: (args) => ({
     props: args,
     template: `
-      <rb-card [hover]="hover" [padding]="padding">
-        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&q=80" alt="Sample" class="w-full" />
+      <rb-card [padding]="padding" [hover]="hover">
+        <img src="https://images.unsplash.com/photo-1678685888221-cda773a3dcdb?w=500&q=80" alt="Sample" class="w-full h-48 object-cover" />
         <div class="p-4">
-          <h3 class="text-lg font-semibold mb-2">Image Card</h3>
-          <p class="text-gray-600">Card with no padding for full-width images.</p>
+          <h3 class="text-lg font-semibold">Card with Image</h3>
         </div>
+      </rb-card>
+    `,
+  }),
+};
+
+export const SmallPadding: Story = {
+  args: {
+    padding: 'sm',
+  },
+  render: (args) => ({
+    props: args,
+    template: `
+      <rb-card [padding]="padding">
+        <p class="text-sm">Small padding card</p>
       </rb-card>
     `,
   }),
@@ -72,17 +69,30 @@ export const NoPadding: Story = {
 
 export const LargePadding: Story = {
   args: {
-    hover: true,
     padding: 'lg',
   },
   render: (args) => ({
     props: args,
     template: `
-      <rb-card [hover]="hover" [padding]="padding">
-        <h3 class="text-lg font-semibold mb-2">Large Padding Card</h3>
-        <p class="text-gray-600">This card has large padding for more spacious content.</p>
+      <rb-card [padding]="padding">
+        <h2 class="text-2xl font-bold mb-4">Large Padding</h2>
+        <p>This card has generous spacing around its content.</p>
       </rb-card>
     `,
   }),
 };
 
+export const NoHover: Story = {
+  args: {
+    padding: 'md',
+    hover: false,
+  },
+  render: (args) => ({
+    props: args,
+    template: `
+      <rb-card [padding]="padding" [hover]="hover">
+        <p>This card doesn't have hover effects.</p>
+      </rb-card>
+    `,
+  }),
+};

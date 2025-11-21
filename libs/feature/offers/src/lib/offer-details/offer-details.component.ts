@@ -31,19 +31,19 @@ export class OfferDetailsComponent implements OnInit {
   constructor() {
     effect(() => {
       const result = this.store.purchaseResult();
-      if (result) {
+      if (result && this.showPurchaseForm()) {
         this.purchaseMessage.set(result.message);
         this.purchaseSuccess.set(result.success);
         if (result.success) {
           this.showPurchaseForm.set(false);
         }
       }
-    });
+    }, { allowSignalWrites: true });
   }
 
   ngOnInit() {
-    this.store.loadOfferById(this.id());
     this.store.clearPurchaseResult();
+    this.store.loadOfferById(this.id());
   }
 
   voteUp() {
