@@ -8,7 +8,7 @@
     "format": "nx format:write",
     "build": "nx build marketplace",
     "serve": "nx serve marketplace",
-    "serve:ssr": "nx serve-ssr marketplace",
+    "serve:ssr": "nx serve marketplace:serve:development",
     "storybook": "nx storybook ui-components",
     "test": "nx run-many -t test"
   },
@@ -47,7 +47,6 @@
     "@types/node": "18.16.9",
     "@typescript-eslint/utils": "^8.40.0",
     "angular-eslint": "^20.3.0",
-    "autoprefixer": "^10.4.22",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
     "eslint-plugin-playwright": "^1.6.2",
@@ -61,7 +60,6 @@
     "postcss": "^8.5.6",
     "prettier": "^2.6.2",
     "storybook": "10.0.8",
-    "tailwindcss": "^3.4.18",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
     "tslib": "^2.3.0",
@@ -81,8 +79,10 @@
     "@angular/ssr": "~20.3.0",
     "@ngrx/signals": "^20.1.0",
     "@ngrx/store": "^20.1.0",
+    "@tailwindcss/postcss": "^4.1.17",
     "express": "^4.21.2",
     "rxjs": "~7.8.0",
+    "tailwindcss": "^4.1.17",
     "zone.js": "~0.15.0"
   }
 }

@@ -1,5 +1,5 @@
-const express = require('express');
-const cors = require('cors');
+import express, { Request, Response } from 'express';
+import cors from 'cors';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -7,7 +7,21 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-let offers = [
+interface Offer {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+  votes: number;
+  merchantName: string;
+  merchantRating: number;
+  category: string;
+  condition: 'new' | 'like-new' | 'good' | 'acceptable';
+  stock: number;
+}
+
+let offers: Offer[] = [
   {
     id: '1',
     title: 'iPhone 14 Pro',
@@ -114,15 +128,15 @@ let offers = [
   }
 ];
 
-app.get('/api/health', (req, res) => {
+app.get('/api/health', (req: Request, res: Response) => {
   res.json({ status: 'ok', message: 'API server is running' });
 });
 
-app.get('/api/offers', (req, res) => {
+app.get('/api/offers', (req: Request, res: Response) => {
   res.json(offers);
 });
 
-app.get('/api/offers/:id', (req, res) => {
+app.get('/api/offers/:id', (req: Request, res: Response) => {
   const offer = offers.find(o => o.id === req.params.id);
   if (offer) {
     res.json(offer);
@@ -131,7 +145,7 @@ app.get('/api/offers/:id', (req, res) => {
   }
 });
 
-app.post('/api/offers/:id/vote', (req, res) => {
+app.post('/api/offers/:id/vote', (req: Request, res: Response) => {
   const { voteType } = req.body;
   const offer = offers.find(o => o.id === req.params.id);
   
@@ -143,7 +157,7 @@ app.post('/api/offers/:id/vote', (req, res) => {
   }
 });
 
-app.post('/api/offers/:id/purchase', (req, res) => {
+app.post('/api/offers/:id/purchase', (req: Request, res: Response) => {
   const { quantity } = req.body;
   const offer = offers.find(o => o.id === req.params.id);
   

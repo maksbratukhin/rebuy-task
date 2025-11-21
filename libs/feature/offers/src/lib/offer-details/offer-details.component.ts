@@ -1,14 +1,13 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { OffersStore } from '@rebuy-workspace/data-access-offers';
-import { CardComponent, RatingComponent, ButtonComponent } from '@rebuy-workspace/ui-components';
+import { CardComponent, RatingComponent, ButtonComponent, PurchaseFormComponent } from '@rebuy-workspace/ui-components';
 
 @Component({
   selector: 'rb-offer-details',
   standalone: true,
-  imports: [CommonModule, FormsModule, CardComponent, RatingComponent, ButtonComponent],
+  imports: [CommonModule, CardComponent, RatingComponent, ButtonComponent, PurchaseFormComponent],
   template: `
     <div class="container mx-auto px-4 py-8">
       <button 
@@ -112,56 +111,16 @@ import { CardComponent, RatingComponent, ButtonComponent } from '@rebuy-workspac
             }
 
             @if (showPurchaseForm()) {
-              <rb-card [padding]="'md'" [hover]="false" class="mt-6">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">Complete Purchase</h3>
-                
-                <div class="mb-4">
-                  <label class="block text-gray-700 font-medium mb-2">Quantity</label>
-                  <input
-                    type="number"
-                    [(ngModel)]="quantity"
-                    [min]="1"
-                    [max]="offer()!.stock"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-
-                <div class="mb-4 p-4 bg-blue-50 rounded-lg">
-                  <div class="flex justify-between items-center">
-                    <span class="text-gray-700 font-medium">Total Price:</span>
-                    <span class="text-2xl font-bold text-blue-600">\${{ totalPrice() }}</span>
-                  </div>
-                </div>
-
-                @if (purchaseMessage()) {
-                  <div [class]="purchaseSuccess() ? 'bg-green-50 border border-green-200 text-green-700' : 'bg-red-50 border border-red-200 text-red-700'" class="px-4 py-3 rounded mb-4">
-                    {{ purchaseMessage() }}
-                  </div>
-                }
-
-                <div class="flex gap-3">
-                  <rb-button 
-                    [variant]="'secondary'" 
-                    [size]="'lg'"
-                    (clicked)="cancelPurchase()"
-                  >
-                    Cancel
-                  </rb-button>
-                  <rb-button 
-                    [variant]="'success'" 
-                    [size]="'lg'"
-                    [fullWidth]="true"
-                    [disabled]="store.loading()"
-                    (clicked)="confirmPurchase()"
-                  >
-                    @if (store.loading()) {
-                      Processing...
-                    } @else {
-                      Confirm Purchase
-                    }
-                  </rb-button>
-                </div>
-              </rb-card>
+              <rb-purchase-form
+                class="mt-6 block"
+                [price]="offer()!.price"
+                [maxStock]="offer()!.stock"
+                [loading]="store.loading()"
+                [message]="purchaseMessage()"
+                [success]="purchaseSuccess()"
+                (confirmClicked)="confirmPurchase($event)"
+                (cancelClicked)="cancelPurchase()"
+              />
             }
           </div>
         </div>
@@ -186,7 +145,6 @@ export class OfferDetailsComponent implements OnInit {
 
   offer = this.store.selectedOffer;
   showPurchaseForm = signal(false);
-  quantity = 1;
   purchaseMessage = signal<string>('');
   purchaseSuccess = signal<boolean>(false);
 
@@ -195,10 +153,6 @@ export class OfferDetailsComponent implements OnInit {
     if (id) {
       this.store.loadOfferById(id);
     }
-  }
-
-  totalPrice() {
-    return this.offer() ? this.offer()!.price * this.quantity : 0;
   }
 
   voteUp() {
@@ -213,12 +167,12 @@ export class OfferDetailsComponent implements OnInit {
     }
   }
 
-  confirmPurchase() {
-    if (this.offer() && this.quantity > 0 && this.quantity <= this.offer()!.stock) {
+  confirmPurchase(quantity: number) {
+    if (this.offer() && quantity > 0 && quantity <= this.offer()!.stock) {
       this.store.purchaseOffer({
         offerId: this.offer()!.id,
-        quantity: this.quantity,
-        totalPrice: this.totalPrice()
+        quantity,
+        totalPrice: this.offer()!.price * quantity
       });
 
       setTimeout(() => {
@@ -233,7 +187,6 @@ export class OfferDetailsComponent implements OnInit {
 
   cancelPurchase() {
     this.showPurchaseForm.set(false);
-    this.quantity = 1;
     this.purchaseMessage.set('');
     this.purchaseSuccess.set(false);
   }
@@ -242,4 +195,3 @@ export class OfferDetailsComponent implements OnInit {
     this.router.navigate(['/']);
   }
 }
-

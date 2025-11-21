@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
   imports: [RouterModule],
   selector: 'rb-root',
   templateUrl: './app.html',
-  styleUrl: './app.css',
 })
 export class App {
   protected title = 'Rebuy Marketplace';

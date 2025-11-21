@@ -1,5 +1,4 @@
 import type { Preview } from '@storybook/angular';
-import '../../../marketplace/src/styles.css';
 
 const preview: Preview = {
   parameters: {
