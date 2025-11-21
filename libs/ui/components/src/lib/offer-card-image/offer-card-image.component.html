@@ -1,0 +1,11 @@
+<div class="relative">
+  <img 
+    [src]="imageUrl()" 
+    [alt]="title()"
+    class="w-full h-48 object-cover"
+  />
+  <div class="absolute top-2 right-2 bg-white px-2 py-1 rounded-full text-sm font-semibold">
+    {{ condition() }}
+  </div>
+</div>
+

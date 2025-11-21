@@ -1,0 +1,26 @@
+@if (message()) {
+  <rb-message-box [message]="message()" [type]="success() ? 'success' : 'error'" />
+}
+
+<div class="flex gap-3">
+  <rb-button 
+    [variant]="'secondary'" 
+    [size]="'lg'"
+    (clicked)="cancel.emit()"
+  >
+    Cancel
+  </rb-button>
+  <rb-button 
+    [variant]="'success'" 
+    [size]="'lg'"
+    [fullWidth]="true"
+    [disabled]="loading()"
+    (clicked)="confirm.emit()"
+  >
+    @if (loading()) {
+      Processing...
+    } @else {
+      Confirm Purchase
+    }
+  </rb-button>
+</div>

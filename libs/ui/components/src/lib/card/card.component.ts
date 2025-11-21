@@ -5,12 +5,7 @@ import { CommonModule } from '@angular/common';
   selector: 'rb-card',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <div [class]="cardClasses()">
-      <ng-content></ng-content>
-    </div>
-  `,
-  styles: ``
+  templateUrl: './card.component.html',
 })
 export class CardComponent {
   hover = input<boolean>(true);

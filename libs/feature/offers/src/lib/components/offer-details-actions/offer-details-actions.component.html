@@ -1,0 +1,30 @@
+@if (!showPurchaseForm()) {
+  <rb-button 
+    [variant]="'primary'" 
+    [size]="'lg'" 
+    [fullWidth]="true"
+    [disabled]="offer().stock === 0"
+    (clicked)="showForm.emit()"
+    class="mt-6"
+  >
+    @if (offer().stock === 0) {
+      Out of Stock
+    } @else {
+      Purchase Now
+    }
+  </rb-button>
+}
+
+@if (showPurchaseForm()) {
+  <rb-purchase-form
+    class="mt-6 block"
+    [price]="offer().price"
+    [maxStock]="offer().stock"
+    [loading]="loading()"
+    [message]="purchaseMessage()"
+    [success]="purchaseSuccess()"
+    (confirmClicked)="confirmPurchase.emit($event)"
+    (cancelClicked)="cancelPurchase.emit()"
+  />
+}
+

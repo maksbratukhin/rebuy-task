@@ -1,0 +1,16 @@
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+  <rb-offer-image [imageUrl]="offer().imageUrl" [title]="offer().title" />
+  
+  <rb-offer-details-main
+    [offer]="offer()"
+    [showPurchaseForm]="showPurchaseForm()"
+    [purchaseMessage]="purchaseMessage()"
+    [purchaseSuccess]="purchaseSuccess()"
+    [loading]="loading()"
+    (voteUp)="voteUp.emit()"
+    (voteDown)="voteDown.emit()"
+    (showForm)="showForm.emit()"
+    (confirmPurchase)="confirmPurchase.emit($event)"
+    (cancelPurchase)="cancelPurchase.emit()"
+  />
+</div>

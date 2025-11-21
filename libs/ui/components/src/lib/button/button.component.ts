@@ -5,17 +5,7 @@ import { CommonModule } from '@angular/common';
   selector: 'rb-button',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <button
-      [type]="type()"
-      [disabled]="disabled()"
-      [class]="buttonClasses()"
-      (click)="handleClick()"
-    >
-      <ng-content></ng-content>
-    </button>
-  `,
-  styles: ``
+  templateUrl: './button.component.html',
 })
 export class ButtonComponent {
   variant = input<'primary' | 'secondary' | 'success' | 'danger'>('primary');

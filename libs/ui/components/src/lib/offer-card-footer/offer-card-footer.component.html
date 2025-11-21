@@ -1,0 +1,12 @@
+<div class="flex items-center justify-between pt-3 border-t border-gray-200">
+  <div (click)="$event.stopPropagation()">
+    <rb-vote-buttons 
+      [votes]="votes()" 
+      [size]="'sm'"
+      (voteUp)="voteUp.emit()"
+      (voteDown)="voteDown.emit()"
+    />
+  </div>
+  <span class="text-xs text-gray-500">{{ category() }}</span>
+</div>
+

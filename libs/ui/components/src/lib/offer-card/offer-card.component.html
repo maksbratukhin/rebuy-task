@@ -1,0 +1,23 @@
+<rb-card [padding]="'none'" (click)="cardClicked.emit()">
+  <rb-offer-card-image 
+    [imageUrl]="imageUrl()" 
+    [title]="title()" 
+    [condition]="condition()" 
+  />
+  <div class="p-4">
+    <rb-offer-card-details
+      [title]="title()"
+      [description]="description()"
+      [price]="price()"
+      [stock]="stock()"
+      [merchantName]="merchantName()"
+      [merchantRating]="merchantRating()"
+    />
+    <rb-offer-card-footer
+      [votes]="votes()"
+      [category]="category()"
+      (voteUp)="voteUpClicked.emit()"
+      (voteDown)="voteDownClicked.emit()"
+    />
+  </div>
+</rb-card>

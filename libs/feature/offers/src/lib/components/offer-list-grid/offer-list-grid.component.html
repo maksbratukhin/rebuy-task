@@ -1,0 +1,20 @@
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+  @for (offer of offers(); track offer.id) {
+    <rb-offer-card
+      [title]="offer.title"
+      [description]="offer.description"
+      [price]="offer.price"
+      [imageUrl]="offer.imageUrl"
+      [votes]="offer.votes"
+      [merchantName]="offer.merchantName"
+      [merchantRating]="offer.merchantRating"
+      [category]="offer.category"
+      [condition]="offer.condition"
+      [stock]="offer.stock"
+      (cardClicked)="navigate.emit(offer.id)"
+      (voteUpClicked)="voteUp.emit(offer.id)"
+      (voteDownClicked)="voteDown.emit(offer.id)"
+    />
+  }
+</div>
+

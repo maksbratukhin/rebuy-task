@@ -1,0 +1,23 @@
+<button
+  (click)="clicked.emit()"
+  [class]="size() === 'lg' ? 'p-2 rounded-lg' : 'p-1 rounded'"
+  [class.hover:bg-green-50]="type() === 'up'"
+  [class.hover:bg-red-50]="type() === 'down'"
+  class="transition-colors"
+  [attr.aria-label]="type() === 'up' ? 'Vote up' : 'Vote down'"
+>
+  <svg 
+    [class]="size() === 'lg' ? 'w-8 h-8' : 'w-6 h-6'"
+    [class.text-green-600]="type() === 'up'"
+    [class.text-red-600]="type() === 'down'"
+    fill="currentColor" 
+    viewBox="0 0 20 20"
+  >
+    @if (type() === 'up') {
+      <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd" />
+    } @else {
+      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+    }
+  </svg>
+</button>
+

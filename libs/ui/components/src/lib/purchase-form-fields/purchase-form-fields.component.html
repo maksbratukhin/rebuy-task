@@ -1,0 +1,19 @@
+<div class="mb-4">
+  <label for="quantity" class="block text-gray-700 font-medium mb-2">Quantity</label>
+  <input
+    id="quantity"
+    type="number"
+    [(ngModel)]="quantity"
+    [min]="1"
+    [max]="maxStock()"
+    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+  />
+</div>
+
+<div class="p-4 bg-blue-50 rounded-lg">
+  <div class="flex justify-between items-center">
+    <span class="text-gray-700 font-medium">Total Price:</span>
+    <span class="text-2xl font-bold text-blue-600">${{ price() * quantity() }}</span>
+  </div>
+</div>
+

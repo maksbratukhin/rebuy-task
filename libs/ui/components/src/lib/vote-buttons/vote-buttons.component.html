@@ -1,0 +1,15 @@
+<div class="flex items-center gap-2">
+  <rb-vote-button 
+    [type]="'up'" 
+    [size]="size()" 
+    (clicked)="voteUp.emit()" 
+  />
+  <span [class]="size() === 'lg' ? 'text-2xl' : 'text-base'" class="font-semibold text-gray-700">
+    {{ votes() }}
+  </span>
+  <rb-vote-button 
+    [type]="'down'" 
+    [size]="size()" 
+    (clicked)="voteDown.emit()" 
+  />
+</div>
