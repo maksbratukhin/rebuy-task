@@ -146,6 +146,19 @@ The build artifacts will be stored in the `dist/` directory.
 npm test
 ```
 
+#### Run e2e tests
+```bash
+npm run e2e
+```
+
+This will automatically:
+1. Start the API server at `http://localhost:3000`
+2. Start the Angular application at `http://localhost:4200`
+3. Run Playwright tests across Chrome, Firefox, and Safari
+4. Display an interactive HTML report of test results
+
+The e2e tests will wait for both servers to be ready before running tests.
+
 #### Run linting
 ```bash
 npm run lint
@@ -188,6 +201,10 @@ The UI components are documented in Storybook:
 
 ## API Endpoints
 
+### GET /api/health
+Health check endpoint for monitoring
+Response: `{ "status": "ok", "timestamp": "ISO-8601 date" }`
+
 ### GET /api/offers
 Returns all offers sorted by votes
 
@@ -201,6 +218,7 @@ Body: `{ "voteType": "up" | "down" }`
 ### POST /api/offers/:id/purchase
 Purchase an offer
 Body: `{ "quantity": number }`
+Response: `{ "success": boolean, "message": string, "offer": Offer }`
 
 ## Deployment
 
