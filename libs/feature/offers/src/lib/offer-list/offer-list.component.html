@@ -8,9 +8,11 @@
   }
 
   @if (store.error()) {
-    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
-      {{ store.error() }}
-    </div>
+    <rb-error-state
+      [title]="'Unable to Load Offers'"
+      [message]="store.error()!"
+      (retry)="retry()"
+    />
   }
 
   <rb-offer-list-grid

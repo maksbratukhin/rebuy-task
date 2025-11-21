@@ -16,3 +16,4 @@ export * from './lib/offer-card-footer/offer-card-footer.component';
 export * from './lib/purchase-form-fields/purchase-form-fields.component';
 export * from './lib/purchase-form-actions/purchase-form-actions.component';
 export * from './lib/message-box/message-box.component';
+export * from './lib/error-state/error-state.component';

@@ -7,6 +7,25 @@ import { inject } from '@angular/core';
 import { OffersService } from '../services/offers.service';
 import { Router } from '@angular/router';
 
+function getErrorMessage(error: unknown): string {
+  if (error && typeof error === 'object' && 'status' in error) {
+    const httpError = error as { status: number; statusText?: string };
+    if (httpError.status === 0) {
+      return 'Unable to connect to the server. Please ensure the API is running and try again.';
+    }
+    if (httpError.status === 404) {
+      return 'The requested resource was not found.';
+    }
+    if (httpError.status >= 500) {
+      return 'Server error occurred. Please try again later.';
+    }
+  }
+  if (error instanceof Error) {
+    return error.message;
+  }
+  return 'An unexpected error occurred. Please try again.';
+}
+
 type OffersState = {
   offers: Offer[];
   selectedOffer: Offer | null;
@@ -39,7 +58,7 @@ export const OffersStore = signalStore(
         switchMap(() => offersService.getOffers()),
         tap({
           next: (offers) => patchState(store, { offers, loading: false }),
-          error: (error: Error) => patchState(store, { error: error.message, loading: false }),
+          error: (error: unknown) => patchState(store, { error: getErrorMessage(error), loading: false }),
         })
       )
     ),
@@ -49,7 +68,7 @@ export const OffersStore = signalStore(
         switchMap((id) => offersService.getOfferById(id)),
         tap({
           next: (offer) => patchState(store, { selectedOffer: offer || null, loading: false }),
-          error: (error: Error) => patchState(store, { error: error.message, loading: false }),
+          error: (error: unknown) => patchState(store, { error: getErrorMessage(error), loading: false }),
         })
       )
     ),
