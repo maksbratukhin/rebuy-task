@@ -1,0 +1,32 @@
+<div class="min-h-screen bg-gray-50">
+  <header class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between h-16">
+        <a routerLink="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z" />
+          </svg>
+          <span class="text-2xl font-bold text-gray-900">{{ title }}</span>
+        </a>
+        <nav class="flex items-center gap-6">
+          <a routerLink="/" class="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+            Marketplace
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <router-outlet />
+  </main>
+
+  <footer class="bg-white border-t border-gray-200 mt-16">
+    <div class="container mx-auto px-4 py-8">
+      <div class="text-center text-gray-600">
+        <p class="mb-2">&copy; 2025 Rebuy Marketplace. All rights reserved.</p>
+        <p class="text-sm">Your trusted platform for quality pre-owned products.</p>
+      </div>
+    </div>
+  </footer>
+</div>
