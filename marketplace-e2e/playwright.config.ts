@@ -16,6 +16,7 @@ const baseURL = process.env['BASE_URL'] || 'http://localhost:4200';
  */
 export default defineConfig({
   ...nxE2EPreset(__filename, { testDir: './src' }),
+  globalSetup: require.resolve('./global-setup.ts'),
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL,
@@ -23,22 +24,13 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   /* Run your local dev server before starting the tests */
-  webServer: [
-    {
-      command: 'npx nx serve api --no-tui',
-      url: 'http://localhost:3000',
-      reuseExistingServer: true,
-      cwd: workspaceRoot,
-      timeout: 120000,
-    },
-    {
-      command: 'npx nx serve marketplace --no-tui',
-      url: 'http://localhost:4200',
-      reuseExistingServer: true,
-      cwd: workspaceRoot,
-      timeout: 120000,
-    },
-  ],
+  webServer: {
+    command: 'npm run serve',
+    url: 'http://localhost:4200',
+    reuseExistingServer: !process.env.CI,
+    cwd: workspaceRoot,
+    timeout: 120000,
+  },
   projects: [
     {
       name: 'chromium',
