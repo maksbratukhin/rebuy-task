@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { VoteButtonsComponent } from './vote-buttons.component';
-import { action } from '@storybook/addon-actions';
 
 const meta: Meta<VoteButtonsComponent> = {
   component: VoteButtonsComponent,
@@ -26,12 +25,8 @@ export const Small: Story = {
     size: 'sm',
   },
   render: (args) => ({
-    props: {
-      ...args,
-      voteUp: action('voteUp'),
-      voteDown: action('voteDown'),
-    },
-    template: '<rb-vote-buttons [votes]="votes" [size]="size" (voteUp)="voteUp()" (voteDown)="voteDown()"></rb-vote-buttons>',
+    props: args,
+    template: '<rb-vote-buttons [votes]="votes" [size]="size"></rb-vote-buttons>',
   }),
 };
 
@@ -41,12 +36,8 @@ export const Large: Story = {
     size: 'lg',
   },
   render: (args) => ({
-    props: {
-      ...args,
-      voteUp: action('voteUp'),
-      voteDown: action('voteDown'),
-    },
-    template: '<rb-vote-buttons [votes]="votes" [size]="size" (voteUp)="voteUp()" (voteDown)="voteDown()"></rb-vote-buttons>',
+    props: args,
+    template: '<rb-vote-buttons [votes]="votes" [size]="size"></rb-vote-buttons>',
   }),
 };
 
@@ -56,12 +47,8 @@ export const ZeroVotes: Story = {
     size: 'sm',
   },
   render: (args) => ({
-    props: {
-      ...args,
-      voteUp: action('voteUp'),
-      voteDown: action('voteDown'),
-    },
-    template: '<rb-vote-buttons [votes]="votes" [size]="size" (voteUp)="voteUp()" (voteDown)="voteDown()"></rb-vote-buttons>',
+    props: args,
+    template: '<rb-vote-buttons [votes]="votes" [size]="size"></rb-vote-buttons>',
   }),
 };
 
@@ -71,12 +58,8 @@ export const NegativeVotes: Story = {
     size: 'sm',
   },
   render: (args) => ({
-    props: {
-      ...args,
-      voteUp: action('voteUp'),
-      voteDown: action('voteDown'),
-    },
-    template: '<rb-vote-buttons [votes]="votes" [size]="size" (voteUp)="voteUp()" (voteDown)="voteDown()"></rb-vote-buttons>',
+    props: args,
+    template: '<rb-vote-buttons [votes]="votes" [size]="size"></rb-vote-buttons>',
   }),
 };
 

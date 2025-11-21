@@ -36,6 +36,9 @@ export class OfferDetailsComponent implements OnInit {
         this.purchaseSuccess.set(result.success);
         if (result.success) {
           this.showPurchaseForm.set(false);
+          setTimeout(() => {
+            this.goBack();
+          }, 2000);
         }
       }
     }, { allowSignalWrites: true });

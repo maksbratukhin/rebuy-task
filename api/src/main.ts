@@ -1,25 +1,12 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
+import type { Offer, PurchaseResponse } from '@rebuy-workspace/shared-types';
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-
-interface Offer {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  imageUrl: string;
-  votes: number;
-  merchantName: string;
-  merchantRating: number;
-  category: string;
-  condition: 'new' | 'like-new' | 'good' | 'acceptable';
-  stock: number;
-}
 
 const offers: Offer[] = [
   {
@@ -179,16 +166,18 @@ app.post('/api/offers/:id/purchase', (req: Request, res: Response) => {
 
   if (offer.stock >= quantity) {
     offer.stock -= quantity;
-    res.json({
+    const response: PurchaseResponse = {
       success: true,
       message: 'Purchase successful! Your order has been placed.',
       offer: offer
-    });
+    };
+    res.json(response);
   } else {
-    res.status(400).json({
+    const response: PurchaseResponse = {
       success: false,
       message: `Insufficient stock available. Only ${offer.stock} items left.`
-    });
+    };
+    res.status(400).json(response);
   }
 });
 

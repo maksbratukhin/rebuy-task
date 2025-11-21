@@ -19,7 +19,8 @@
       "@rebuy-workspace/data-access-offers": [
         "libs/data-access/offers/src/index.ts"
       ],
-      "@rebuy-workspace/ui-components": ["libs/ui/components/src/index.ts"]
+      "@rebuy-workspace/ui-components": ["libs/ui/components/src/index.ts"],
+      "@rebuy-workspace/shared-types": ["libs/shared/types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

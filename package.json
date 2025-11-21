@@ -9,10 +9,10 @@
     "build": "nx build marketplace",
     "build:api": "nx build api",
     "serve": "npm-run-all --parallel serve:api serve:app",
-    "serve:api": "nx serve api",
-    "serve:app": "nx serve marketplace",
+    "serve:api": "nx serve api --no-tui",
+    "serve:app": "nx serve marketplace --no-tui",
     "serve:ssr": "npm-run-all --parallel serve:api serve:app",
-    "storybook": "nx storybook ui-components",
+    "storybook": "nx storybook ui-components --no-tui",
     "test": "nx run-many -t test"
   },
   "lint-staged": {
@@ -20,6 +20,10 @@
       "nx format:write --uncommitted"
     ]
   },
+  "workspaces": [
+    "api",
+    "libs/shared/types"
+  ],
   "private": true,
   "devDependencies": {
     "@angular-devkit/core": "~20.3.0",
