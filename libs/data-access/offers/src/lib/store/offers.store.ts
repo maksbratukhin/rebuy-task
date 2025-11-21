@@ -1,10 +1,11 @@
 import { computed } from '@angular/core';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { pipe, switchMap, tap, catchError, of } from 'rxjs';
+import { pipe, switchMap, tap, catchError, of, delay } from 'rxjs';
 import { Offer, OfferVote, OfferPurchase, PurchaseResponse } from '../models/offer.model';
 import { inject } from '@angular/core';
 import { OffersService } from '../services/offers.service';
+import { Router } from '@angular/router';
 
 type OffersState = {
   offers: Offer[];
@@ -31,7 +32,7 @@ export const OffersStore = signalStore(
     ),
     offersCount: computed(() => offers().length),
   })),
-  withMethods((store, offersService = inject(OffersService)) => ({
+  withMethods((store, offersService = inject(OffersService), router = inject(Router)) => ({
     loadOffers: rxMethod<void>(
       pipe(
         tap(() => patchState(store, { loading: true, error: null })),
@@ -91,6 +92,14 @@ export const OffersStore = signalStore(
               if (store.selectedOffer()?.id === updatedOffer.id) {
                 patchState(store, { selectedOffer: updatedOffer });
               }
+            }
+          },
+        }),
+        tap({
+          next: (result: PurchaseResponse) => {
+            if (result.success) {
+              delay(2000);
+              router.navigate(['/']);
             }
           },
         })

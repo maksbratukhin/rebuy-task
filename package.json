@@ -13,7 +13,9 @@
     "serve:app": "nx serve marketplace --no-tui",
     "serve:ssr": "npm-run-all --parallel serve:api serve:app",
     "storybook": "nx storybook ui-components --no-tui",
-    "test": "nx run-many -t test"
+    "test": "nx run-many -t test",
+    "e2e": "nx e2e marketplace-e2e",
+    "e2e:ui": "nx e2e marketplace-e2e --ui"
   },
   "lint-staged": {
     "*.{ts,js,html,css,json,md}": [
