@@ -220,15 +220,55 @@ Purchase an offer
 Body: `{ "quantity": number }`
 Response: `{ "success": boolean, "message": string, "offer": Offer }`
 
+## CI/CD Pipeline
+
+The project uses GitHub Actions for continuous integration and deployment:
+
+### Workflows
+
+#### 1. CI Workflow (`.github/workflows/ci.yml`)
+Runs on every push and pull request:
+- **Lint**: Runs ESLint across all projects
+- **Test**: Executes unit tests
+- **Build**: Builds marketplace and API applications
+- Uploads build artifacts for review
+
+#### 2. E2E Tests (`.github/workflows/e2e.yml`)
+Runs end-to-end tests on every push and pull request:
+- Installs Playwright with all browsers
+- Runs tests across Chrome, Firefox, and Safari
+- Uploads test reports and screenshots on failure
+- 15-minute timeout to prevent hanging
+
+#### 3. Deploy (`.github/workflows/deploy.yml`)
+Automatically deploys to GitHub Pages on main branch:
+- Builds production-optimized bundle
+- Deploys to GitHub Pages
+- Updates live site automatically
+
+#### 4. Storybook (`.github/workflows/storybook.yml`)
+Builds Storybook component documentation:
+- Generates static Storybook build
+- Uploads as artifact for review
+
+### Setting Up GitHub Pages
+
+1. Go to repository **Settings** → **Pages**
+2. Under **Source**, select **GitHub Actions**
+3. Push to main branch to trigger deployment
+4. Your app will be available at `https://<username>.github.io/<repo-name>`
+
+### Status Badges
+
+Add these to your README to show build status:
+
+```markdown
+![CI](https://github.com/<username>/<repo>/workflows/CI/badge.svg)
+![E2E Tests](https://github.com/<username>/<repo>/workflows/E2E%20Tests/badge.svg)
+![Deploy](https://github.com/<username>/<repo>/workflows/Deploy%20to%20GitHub%20Pages/badge.svg)
+```
+
 ## Deployment
-
-### GitHub Pages
-The application is configured for automatic deployment to GitHub Pages via GitHub Actions.
-
-To deploy:
-1. Push to the main branch
-2. GitHub Actions will automatically build and deploy the application
-3. Enable GitHub Pages in repository settings if not already enabled
 
 ### Manual Deployment
 ```bash
